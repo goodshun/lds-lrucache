@@ -1,7 +1,7 @@
 package com.lds.cache;
 
-import com.lds.cache.component.CacheManager;
-import com.lds.cache.component.LruCacheQueen;
+import com.lds.cache.cache.CacheManager;
+import com.lds.cache.cache.impl.LruCacheQueen;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

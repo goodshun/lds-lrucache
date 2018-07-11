@@ -1,4 +1,4 @@
-package com.lds.cache.component;
+package com.lds.cache.cache;
 
 /**
  * Title: Cache

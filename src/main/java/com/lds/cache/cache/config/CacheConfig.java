@@ -1,6 +1,4 @@
-package com.lds.cache.component;
-
-import org.springframework.beans.factory.annotation.Value;
+package com.lds.cache.cache.config;
 
 
 /**

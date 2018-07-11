@@ -1,6 +1,8 @@
-package com.lds.cache.component;
+package com.lds.cache.cache;
 
 
+import com.lds.cache.cache.impl.LruCache;
+import com.lds.cache.cache.impl.LruCacheQueen;
 import sun.rmi.rmic.Main;
 
 import java.io.IOException;
@@ -20,7 +22,9 @@ public class CacheManager {
 
     private static volatile LruCacheQueen singleton;
 
-    public static LruCacheQueen getCache() {
+    private static volatile LruCache cache;
+
+    public static LruCacheQueen getQueenCache() {
         if (singleton == null) {
             synchronized (LruCacheQueen.class) {
                 if (singleton == null) {
@@ -37,6 +41,25 @@ public class CacheManager {
             }
         }
         return singleton;
+    }
+
+    public static LruCache getLinkedCache() {
+        if (cache == null) {
+            synchronized (LruCacheQueen.class) {
+                if (cache == null) {
+                    int cacheSize ;
+                    Properties prop = new Properties();
+                    try {
+                        prop.load(Main.class.getResourceAsStream("/application.properties"));
+                        cacheSize = Integer.parseInt( prop.getProperty("lruCacheQueen.cacheSize"));
+                    } catch (IOException e) {
+                        cacheSize = 100;
+                    }
+                    cache = new LruCache<>(cacheSize);
+                }
+            }
+        }
+        return cache;
     }
 
 }

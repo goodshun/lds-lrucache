@@ -1,5 +1,6 @@
-package com.lds.cache.component;
+package com.lds.cache.cache.impl;
 
+import com.lds.cache.cache.Cache;
 import lombok.Data;
 import java.util.HashMap;
 import java.util.concurrent.locks.ReentrantLock;
