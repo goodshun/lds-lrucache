@@ -27,7 +27,7 @@ public class LruCacheQueen implements Cache {
     private ReentrantLock lock = new ReentrantLock();
 
 
-     LruCacheQueen(int maxCapacity) {
+     public LruCacheQueen(int maxCapacity) {
         currentSize = 0;
         cacheSize = maxCapacity;
         nodeTable = new HashMap(cacheSize);
