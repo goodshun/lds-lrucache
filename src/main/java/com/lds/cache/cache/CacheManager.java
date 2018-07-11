@@ -3,7 +3,6 @@ package com.lds.cache.cache;
 
 import com.lds.cache.cache.impl.LruCache;
 import com.lds.cache.cache.impl.LruCacheQueen;
-import sun.rmi.rmic.Main;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -26,12 +25,12 @@ public class CacheManager {
 
     public static LruCacheQueen getQueenCache() {
         if (singleton == null) {
-            synchronized (LruCacheQueen.class) {
+            synchronized (CacheManager.class) {
                 if (singleton == null) {
                     int cacheSize ;
                     Properties prop = new Properties();
                     try {
-                        prop.load(Main.class.getResourceAsStream("/application.properties"));
+                        prop.load(CacheManager.class.getResourceAsStream("/application.properties"));
                         cacheSize = Integer.parseInt( prop.getProperty("lruCacheQueen.cacheSize"));
                     } catch (IOException e) {
                         cacheSize = 100;
@@ -45,12 +44,12 @@ public class CacheManager {
 
     public static LruCache getLinkedCache() {
         if (cache == null) {
-            synchronized (LruCacheQueen.class) {
+            synchronized (CacheManager.class) {
                 if (cache == null) {
                     int cacheSize ;
                     Properties prop = new Properties();
                     try {
-                        prop.load(Main.class.getResourceAsStream("/application.properties"));
+                        prop.load(CacheManager.class.getResourceAsStream("/application.properties"));
                         cacheSize = Integer.parseInt( prop.getProperty("lruCacheQueen.cacheSize"));
                     } catch (IOException e) {
                         cacheSize = 100;
