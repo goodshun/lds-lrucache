@@ -1,7 +1,6 @@
 package com.lds.cache.component;
 
 import lombok.Data;
-
 import java.util.HashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -17,43 +16,20 @@ import java.util.concurrent.locks.ReentrantLock;
  * @since 2018/07/02
  */
 
-public class LruCacheQueen implements Cache{
+public class LruCacheQueen implements Cache {
 
-    private int cacheSize;
+    private int cacheSize ;
     private HashMap nodeTable;
     private volatile int currentSize;
     private CacheNode first;
     private CacheNode last;
-
     private ReentrantLock lock = new ReentrantLock();
 
 
-    @Data
-    class CacheNode {
-        /**
-         * 前一个节点
-         */
-        CacheNode prev;
-
-        /**
-         * 后一个节点
-         */
-        CacheNode next;
-
-        Object value;
-
-        Object key;
-
-        CacheNode() {
-
-        }
-    }
-
-
-    public LruCacheQueen(int maxCapacity) {
+     LruCacheQueen(int maxCapacity) {
         currentSize = 0;
-        this.cacheSize = maxCapacity;
-        nodeTable = new HashMap(maxCapacity);
+        cacheSize = maxCapacity;
+        nodeTable = new HashMap(cacheSize);
     }
 
 
@@ -94,15 +70,15 @@ public class LruCacheQueen implements Cache{
                 node = new CacheNode();
                 node.setKey(key);
                 node.setValue(value);
-                if (first != null){
+                if (first != null) {
                     CacheNode nodeTemp = first;
                     node.next = nodeTemp;
                     nodeTemp.prev = node;
-                    if (nodeTemp.next == null){
+                    if (nodeTemp.next == null) {
                         last = nodeTemp;
                     }
                     first = node;
-                }else {
+                } else {
                     first = node;
                 }
 
@@ -197,5 +173,26 @@ public class LruCacheQueen implements Cache{
 
     }
 
+
+    @Data
+    class CacheNode {
+        /**
+         * 前一个节点
+         */
+        CacheNode prev;
+
+        /**
+         * 后一个节点
+         */
+        CacheNode next;
+
+        Object value;
+
+        Object key;
+
+        CacheNode() {
+
+        }
+    }
 
 }
